@@ -1,0 +1,124 @@
+
+\usepackage{lscape}
+\newcommand{\blandscape}{\begin{landscape}}
+\newcommand{\elandscape}{\end{landscape}}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+
+% underscore funcione tanto en mathmode como en texmode
+% https://tex.stackexchange.com/questions/62705/underscore-in-textmode-vs-mathmode
+\AtBeginDocument{
+  \catcode`_=12
+  \begingroup\lccode`~=`_
+  \lowercase{\endgroup\let~}\sb
+  \mathcode`_="8000
+}
+
+
+\usepackage{inconsolata}
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+% MEJORES TABLAS
+\usepackage{booktabs}
+
+% TABLAS GRANDES
+\usepackage{float}
+% https://stackoverflow.com/questions/16626462/figure-position-in-markdown-when-converting-to-pdf-with-knitr-and-pandoc
+% \usepackage{float}
+% \let\origfigure\figure
+% \let\endorigfigure\endfigure
+% \renewenvironment{figure}[1][2] {
+%     \expandafter\origfigure\expandafter[H]
+% } {
+%     \endorigfigure
+% }
+
+% TABLAS LARGAS
+\usepackage{longtable}
+
+% MARGENES
+% \usepackage[margin=0.60in,footskip=0.20in]{geometry}
+% \usepackage[landscape,width=15in,height=11.5in,top=.5in,bottow=.5in]{geometry}
+
+% % logo 1
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \rhead{\includegraphics[width = .05\textwidth]{pdf/logoPUCV.pdf}}
+% \usepackage{titling}
+
+% logo 2
+\pretitle{%
+  \begin{center}
+  \LARGE
+  \includegraphics[width=4cm,height=6cm]{./src/AdMetricks.png}\\[\bigskipamount]
+}
+\posttitle{\end{center}}
+
+%https://tex.stackexchange.com/questions/233336/how-to-adjust-textwidth-and-textheight-to-paper-size-in-mid-document-and-heade
+%\documentclass{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+
+\def\vcoef#1{#1=\dimexpr #1*\pdfpageheight/\paperheight\relax}
+\def\hcoef#1{#1=\dimexpr #1*\pdfpagewidth/\paperwidth\relax}
+
+\makeatletter 
+\def\adjustpagedim#1#2{%
+\newpage
+\pdfpagewidth=#1 \pdfpageheight=#2
+\hcoef\textwidth
+\vcoef\textheight
+\vsize=\textheight
+\@colroom=\textheight
+\@colht=\textheight
+\columnwidth=\textwidth
+\if@twocolumn%
+   \advance\columnwidth-\columnsep
+   \divide\columnwidth\tw@%
+   \@firstcolumntrue%
+\fi%
+\hsize=\columnwidth
+\linewidth=\hsize
+\hcoef\evensidemargin
+\hcoef\oddsidemargin
+\vcoef\topmargin
+\vcoef\headheight
+\vcoef\headsep
+\vcoef\footskip
+\hcoef\marginparwidth
+\hcoef\marginparsep
+\headwidth=\textwidth
+% this is important but does nothing here
+\paperwidth=\pdfpagewidth
+\paperheight=\pdfpageheight}
+\makeatother
+% \begin{document}
+% 
+% \thispagestyle{fancy}
+% %----->I change something here
+% \newlength{\classpageheight} 
+% \setlength{\classpageheight}{\paperheight}
+% \newlength{\classpagewidth} 
+% \setlength{\classpagewidth}{\paperwidth}
+% 
+% \lipsum[1-6]
+% 
+% \adjustpagedim{17in}{18in}
+% \thispagestyle{fancy}
+% 
+% \lipsum[1-6]
+% 
+% \adjustpagedim{\classpagewidth}{\classpageheight}
+% \thispagestyle{fancy}
+% 
+% \lipsum[1-6]
+% 
+% \end{document}
+
